@@ -15,10 +15,13 @@ import {
 import { RiAddLine } from 'react-icons/ri';
 
 interface IModalProps {
-  children: ReactElement;
+  btnTitle?: string;
+  icon: ReactElement;
+  btnChildren?: string;
+  value: string;
 }
 
-const CustomModal = ({ btnColor, btnTitle, icon, children, value }) => {
+const CustomModal = ({ btnTitle, icon, btnChildren, value }: IModalProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   function handleAction(n: string) {
@@ -28,7 +31,7 @@ const CustomModal = ({ btnColor, btnTitle, icon, children, value }) => {
 
   return (
     <>
-      {children ? (
+      {btnChildren ? (
         <>
           <Button
             as="a"
@@ -41,12 +44,12 @@ const CustomModal = ({ btnColor, btnTitle, icon, children, value }) => {
             onClick={onOpen}
             value={value}
           >
-            {children}
+            {btnChildren}
           </Button>
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent bg="gray.800">
-              <ModalHeader>{children}</ModalHeader>
+              <ModalHeader>{btnChildren}</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
                 <Input
@@ -107,6 +110,7 @@ const CustomModal = ({ btnColor, btnTitle, icon, children, value }) => {
                     bgColor: 'gray.900',
                   }}
                   size="lg"
+                  value={value}
                 />
               </ModalBody>
               <ModalFooter>

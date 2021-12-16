@@ -44,10 +44,8 @@ function DriverTasks() {
             </Heading>
 
             <CustomModal
-              btnColor="pink"
-              btnTitle="Editar"
               icon={RiPencilLine}
-              children="Nova tarefa"
+              btnChildren="Nova tarefa"
               value="1"
             />
           </Box>
@@ -80,13 +78,14 @@ function DriverTasks() {
                     leftIcon={
                       <Icon mr="-2" as={AiOutlineCheck} fontSize="16" />
                     }
+                    value="1"
                   />
 
                   <CustomModal
                     btnColor="purple"
                     btnTitle="Editar"
                     icon={RiPencilLine}
-                    children=""
+                    btnChildren=""
                     value="1"
                   />
 
@@ -102,6 +101,7 @@ function DriverTasks() {
                     leftIcon={
                       <Icon mr="-2" as={ImCancelCircle} fontSize="16" />
                     }
+                    value="1"
                   />
                 </Td>
               </Tr>
@@ -128,7 +128,7 @@ function DriverTasks() {
                   />
 
                   <CustomModal
-                    btnColor="purple"
+                    // btnColor="purple"
                     btnTitle="Editar"
                     icon={RiPencilLine}
                     value=""
