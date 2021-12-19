@@ -33,6 +33,9 @@
         "no-unused-vars": "warn",
         "react/jsx-no-bind": "off",
         "no-unused-expressions": "off",
+        "react/require-default-props": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/jsx-no-constructed-context-values": "off",
         "import/extensions":[
             "error",
             "ignorePackages",
