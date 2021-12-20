@@ -15,30 +15,30 @@ export function Sidebar() {
           </Text>
           <Stack spacing="4" mt="8" align="stretch">
             <Link to="/emails">
-              <ChakraLink display="flex" align="center">
+              <Box display="flex" align="center">
                 <Icon as={RiMailSendLine} fontSize="20" />
                 <Text ml="4" fontWeight="medium">
                   Enviar E-mails
                 </Text>
-              </ChakraLink>
+              </Box>
             </Link>
 
             <Link to="/frete">
-              <ChakraLink display="flex" align="center">
+              <Box display="flex" align="center">
                 <Icon as={BsTruck} fontSize="20" />
                 <Text ml="4" fontWeight="medium">
                   Fretes
                 </Text>
-              </ChakraLink>
+              </Box>
             </Link>
 
             <Link to="/driver-tasks">
-              <ChakraLink display="flex" align="center">
+              <Box display="flex" align="center">
                 <Icon as={FaTasks} fontSize="20" />
                 <Text ml="4" fontWeight="medium">
                   Tarefas
                 </Text>
-              </ChakraLink>
+              </Box>
             </Link>
           </Stack>
         </Box>
