@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -20,8 +20,31 @@ import { Header } from '../../components/Header';
 import { Sidebar } from '../../components/Sidebar';
 
 import { CustomModal } from './CustomModal';
+import { api } from '../../services/api';
+import { useTaskFlag } from '../../hooks/task/task';
+
+interface ITasksList {
+  id: string;
+  taskOwner: string;
+  description: string;
+  status: string;
+  createdAt: Date;
+  user: {
+    name: string;
+  };
+}
 
 function DriverTasks() {
+  const [listTasks, setListTasks] = useState<ITasksList[]>([]);
+  const { flagUpdateTasks } = useTaskFlag();
+  useEffect(() => {
+    api
+      .get('/tasks/list', { params: { status: 'Pendente' } })
+      .then((response) => {
+        setListTasks(response.data);
+      });
+  }, [flagUpdateTasks]);
+
   return (
     <Box>
       <Header />
@@ -59,97 +82,55 @@ function DriverTasks() {
                 <Th>Status</Th>
               </Tr>
             </Thead>
-            <Tbody>
-              <Tr>
-                <Td>19/10/2021 18:40</Td>
-                <Td>Luis Moraes</Td>
-                <Td>Buscar troca no mercado, entregar PG.</Td>
-                <Td>Pendente</Td>
-                <Td>
-                  <Button
-                    as="a"
-                    size="sm"
-                    fontSize="sm"
-                    p="0"
-                    mr="2"
-                    colorScheme="green"
-                    cursor="pointer"
-                    title="Marcar com feito"
-                    leftIcon={
-                      <Icon mr="-2" as={AiOutlineCheck} fontSize="16" />
-                    }
-                    value="1"
-                  />
+            {listTasks.map((task) => (
+              <Tbody key={task.id}>
+                <Tr>
+                  <Td>19/10/2021 18:40</Td>
+                  <Td>{task.user.name}</Td>
+                  <Td>{task.description}</Td>
+                  <Td>{task.status}</Td>
+                  <Td>
+                    <Button
+                      as="a"
+                      size="sm"
+                      fontSize="sm"
+                      p="0"
+                      mr="2"
+                      colorScheme="green"
+                      cursor="pointer"
+                      title="Marcar com feito"
+                      leftIcon={
+                        <Icon mr="-2" as={AiOutlineCheck} fontSize="16" />
+                      }
+                    />
 
-                  <CustomModal
-                    btnColor="purple"
-                    btnTitle="Editar"
-                    icon={RiPencilLine}
-                    btnChildren=""
-                    value="1"
-                  />
+                    <CustomModal
+                      btnColor="purple"
+                      btnTitle="Editar"
+                      icon={RiPencilLine}
+                      btnChildren=""
+                      id={task.id}
+                      value={task.description}
+                    />
 
-                  <Button
-                    as="a"
-                    size="sm"
-                    fontSize="sm"
-                    p="0"
-                    mr="2"
-                    colorScheme="red"
-                    cursor="pointer"
-                    title="Excluir"
-                    leftIcon={
-                      <Icon mr="-2" as={ImCancelCircle} fontSize="16" />
-                    }
-                    value="1"
-                  />
-                </Td>
-              </Tr>
-            </Tbody>
-            <Tbody>
-              <Tr>
-                <Td>19/10/2021 18:40</Td>
-                <Td>Luis Moraes</Td>
-                <Td>Buscar troca no mercado, entregar PG.</Td>
-                <Td>Pendente</Td>
-                <Td>
-                  <Button
-                    as="a"
-                    size="sm"
-                    fontSize="sm"
-                    p="0"
-                    mr="2"
-                    colorScheme="green"
-                    cursor="pointer"
-                    title="Marcar com feito"
-                    leftIcon={
-                      <Icon mr="-2" as={AiOutlineCheck} fontSize="16" />
-                    }
-                  />
-
-                  <CustomModal
-                    // btnColor="purple"
-                    btnTitle="Editar"
-                    icon={RiPencilLine}
-                    value=""
-                  />
-
-                  <Button
-                    as="a"
-                    size="sm"
-                    fontSize="sm"
-                    p="0"
-                    mr="2"
-                    colorScheme="red"
-                    cursor="pointer"
-                    title="Excluir"
-                    leftIcon={
-                      <Icon mr="-2" as={ImCancelCircle} fontSize="16" />
-                    }
-                  />
-                </Td>
-              </Tr>
-            </Tbody>
+                    <Button
+                      as="a"
+                      size="sm"
+                      fontSize="sm"
+                      p="0"
+                      mr="2"
+                      colorScheme="red"
+                      cursor="pointer"
+                      title="Excluir"
+                      leftIcon={
+                        <Icon mr="-2" as={ImCancelCircle} fontSize="16" />
+                      }
+                      value={task.id}
+                    />
+                  </Td>
+                </Tr>
+              </Tbody>
+            ))}
           </Table>
         </Box>
       </Flex>

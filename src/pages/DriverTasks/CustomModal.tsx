@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -12,20 +12,37 @@ import {
   Button,
   Icon,
 } from '@chakra-ui/react';
-import { RiAddLine } from 'react-icons/ri';
+import { api } from '../../services/api';
+
+import { useTaskFlag } from '../../hooks/task/task';
 
 interface IModalProps {
   btnTitle?: string;
   icon: ReactElement;
   btnChildren?: string;
   value: string;
+  id: string;
 }
 
-const CustomModal = ({ btnTitle, icon, btnChildren, value }: IModalProps) => {
+const CustomModal = ({
+  btnTitle,
+  icon,
+  btnChildren,
+  value,
+  id,
+}: IModalProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  function handleAction(n: string) {
-    console.log(n);
+  const [inputDescription, setInputDescription] = useState(value);
+  const { flagUpdateTasks, setFlagUpdateTasks } = useTaskFlag();
+
+  function handleTaskDescriptionInput(description: string) {
+    setInputDescription(description);
+  }
+
+  function handleUpdateTask() {
+    api.patch(`/tasks/update/${id}/${inputDescription}`);
+    setFlagUpdateTasks(!flagUpdateTasks);
     onClose();
   }
 
@@ -110,11 +127,20 @@ const CustomModal = ({ btnTitle, icon, btnChildren, value }: IModalProps) => {
                     bgColor: 'gray.900',
                   }}
                   size="lg"
-                  value={value}
+                  value={inputDescription}
+                  onChange={(event) => {
+                    handleTaskDescriptionInput(event.target.value);
+                  }}
                 />
               </ModalBody>
               <ModalFooter>
-                <Button colorScheme="green" mr={3} onClick={onClose}>
+                <Button
+                  colorScheme="green"
+                  mr={3}
+                  onClick={() => {
+                    handleUpdateTask();
+                  }}
+                >
                   Salvar
                 </Button>
                 <Button colorScheme="red" onClick={onClose}>
@@ -125,35 +151,6 @@ const CustomModal = ({ btnTitle, icon, btnChildren, value }: IModalProps) => {
           </Modal>
         </>
       )}
-
-      {/*  <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent bg="gray.800">
-          <ModalHeader>{btnTitle}</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Input
-              name="newtask"
-              id="newTask"
-              focusBorderColor="pink.500"
-              bgColor="gray.900"
-              variant="filled"
-              _hover={{
-                bgColor: 'gray.900',
-              }}
-              size="lg"
-            />
-          </ModalBody>
-          <ModalFooter>
-            <Button colorScheme="green" mr={3} onClick={onClose}>
-              Salvar
-            </Button>
-            <Button colorScheme="red" onClick={onClose}>
-              Cancelar
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal> */}
     </>
   );
 };

@@ -11,6 +11,7 @@ import { DriverTasks } from './pages/DriverTasks';
 import { Login } from './pages/Login';
 import { AuthProvider } from './hooks/auth';
 import { RequireAuth } from './components/routes/RequireAuth';
+import { TaskFlag } from './hooks/task/task';
 
 function App() {
   return (
@@ -24,7 +25,14 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/emails" element={<Sendmails />} />
               <Route path="/frete" element={<Freight />} />
-              <Route path="/driver-tasks" element={<DriverTasks />} />
+              <Route
+                path="/driver-tasks"
+                element={
+                  <TaskFlag>
+                    <DriverTasks />
+                  </TaskFlag>
+                }
+              />
               <Route path="*" element={<Home />} />
             </Route>
           </Routes>
