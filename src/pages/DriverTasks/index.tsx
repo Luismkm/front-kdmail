@@ -36,14 +36,28 @@ interface ITasksList {
 
 function DriverTasks() {
   const [listTasks, setListTasks] = useState<ITasksList[]>([]);
-  const { flagUpdateTasks } = useTaskFlag();
+  const { flagUpdateTasks, setFlagUpdateTasks } = useTaskFlag();
   useEffect(() => {
-    api
-      .get('/tasks/list', { params: { status: 'Pendente' } })
-      .then((response) => {
-        setListTasks(response.data);
-      });
+    api.get('/tasks/list').then((response) => {
+      setListTasks(response.data);
+    });
   }, [flagUpdateTasks]);
+
+  function handleTaskUpdateStatus(status: string, id: string) {
+    console.log(status);
+    if (status === 'Pendente') {
+      api.patch('/tasks/update/status', {
+        task_id: id,
+        status: 'Em andamento',
+      });
+    } else {
+      api.patch('/tasks/update/status', {
+        task_id: id,
+        status: 'Concluído',
+      });
+    }
+    setFlagUpdateTasks(!flagUpdateTasks);
+  }
 
   return (
     <Box>
@@ -69,7 +83,7 @@ function DriverTasks() {
             <CustomModal
               icon={RiPencilLine}
               btnChildren="Nova tarefa"
-              value="1"
+              value=""
             />
           </Box>
           <Divider my="6" borderColor="gray.700" />
@@ -101,6 +115,10 @@ function DriverTasks() {
                       title="Marcar com feito"
                       leftIcon={
                         <Icon mr="-2" as={AiOutlineCheck} fontSize="16" />
+                      }
+                      value={task.status}
+                      onClick={() =>
+                        handleTaskUpdateStatus(task.status, task.id)
                       }
                     />
 

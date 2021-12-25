@@ -36,12 +36,28 @@ const CustomModal = ({
   const [inputDescription, setInputDescription] = useState(value);
   const { flagUpdateTasks, setFlagUpdateTasks } = useTaskFlag();
 
-  function handleTaskDescriptionInput(description: string) {
+  function handleSetTaskDescriptionInput(description: string) {
     setInputDescription(description);
   }
 
+  async function handleCreateNewTask() {
+    if (!inputDescription.trim()) {
+      return;
+    }
+    await api.post('/tasks/create', {
+      description: inputDescription.trim(),
+      status: 'Pendente',
+    });
+    setInputDescription('');
+    setFlagUpdateTasks(!flagUpdateTasks);
+    onClose();
+  }
+
   function handleUpdateTask() {
-    api.patch(`/tasks/update/${id}/${inputDescription}`);
+    api.patch('/tasks/update/description', {
+      task_id: id,
+      description: inputDescription,
+    });
     setFlagUpdateTasks(!flagUpdateTasks);
     onClose();
   }
@@ -79,6 +95,10 @@ const CustomModal = ({
                     bgColor: 'gray.900',
                   }}
                   size="lg"
+                  value={inputDescription}
+                  onChange={(event) => {
+                    handleSetTaskDescriptionInput(event.target.value);
+                  }}
                 />
               </ModalBody>
               <ModalFooter>
@@ -86,7 +106,7 @@ const CustomModal = ({
                   colorScheme="green"
                   mr={3}
                   onClick={() => {
-                    handleAction(value);
+                    handleCreateNewTask();
                   }}
                 >
                   Salvar
@@ -129,7 +149,7 @@ const CustomModal = ({
                   size="lg"
                   value={inputDescription}
                   onChange={(event) => {
-                    handleTaskDescriptionInput(event.target.value);
+                    handleSetTaskDescriptionInput(event.target.value);
                   }}
                 />
               </ModalBody>
