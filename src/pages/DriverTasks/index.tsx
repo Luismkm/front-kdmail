@@ -28,7 +28,7 @@ interface ITasksList {
   taskOwner: string;
   description: string;
   status: string;
-  createdAt: Date;
+  created_at: Date;
   user: {
     name: string;
   };
@@ -103,7 +103,16 @@ function DriverTasks() {
             {listTasks.map((task) => (
               <Tbody key={task.id}>
                 <Tr>
-                  <Td>19/10/2021 18:40</Td>
+                  <Td>
+                    {new Date(task.created_at).toLocaleDateString('pt-BR', {
+                      day: '2-digit',
+                      month: 'numeric',
+                      year: 'numeric',
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      second: 'numeric',
+                    })}
+                  </Td>
                   <Td>{task.user.name}</Td>
                   <Td>{task.description}</Td>
                   <Td>{task.status}</Td>
