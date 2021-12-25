@@ -58,6 +58,11 @@ function DriverTasks() {
     setFlagUpdateTasks(!flagUpdateTasks);
   }
 
+  async function handleExcludeTask(taskId: string) {
+    await api.delete(`/tasks/delete/${taskId}`);
+    setFlagUpdateTasks(!flagUpdateTasks);
+  }
+
   return (
     <Box>
       <Header />
@@ -143,6 +148,9 @@ function DriverTasks() {
                         <Icon mr="-2" as={ImCancelCircle} fontSize="16" />
                       }
                       value={task.id}
+                      onClick={() => {
+                        handleExcludeTask(task.id);
+                      }}
                     />
                   </Td>
                 </Tr>
