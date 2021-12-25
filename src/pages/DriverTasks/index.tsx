@@ -43,15 +43,14 @@ function DriverTasks() {
     });
   }, [flagUpdateTasks]);
 
-  function handleTaskUpdateStatus(status: string, id: string) {
-    console.log(status);
+  async function handleTaskUpdateStatus(status: string, id: string) {
     if (status === 'Pendente') {
-      api.patch('/tasks/update/status', {
+      await api.patch('/tasks/update/status', {
         task_id: id,
         status: 'Em andamento',
       });
     } else {
-      api.patch('/tasks/update/status', {
+      await api.patch('/tasks/update/status', {
         task_id: id,
         status: 'Concluído',
       });
