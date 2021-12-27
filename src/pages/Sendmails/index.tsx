@@ -13,9 +13,11 @@ import {
   FormControl,
   FormLabel,
   Box,
+  HStack,
 } from '@chakra-ui/react';
 
 import { FaFileCsv } from 'react-icons/fa';
+import { FiMonitor } from 'react-icons/fi';
 
 import { AiOutlineArrowRight, AiOutlineFileSearch } from 'react-icons/ai';
 import { MdMiscellaneousServices } from 'react-icons/md';
@@ -104,6 +106,10 @@ function Sendmails() {
     if (response.status === 204) {
       alert('Agora a lista está limpa');
     }
+  }
+
+  function handleOpenMonitor() {
+    setSendEmailInAction(!sendEmailInAction);
   }
 
   return (
@@ -302,17 +308,30 @@ function Sendmails() {
                 e-mails na fila de envio.
               </Text>
             </VStack>
-            <Button
-              w={60}
-              h={8}
-              fontSize="15"
-              rightIcon={<Icon as={AiOutlineFileSearch} fontSize="15" />}
-              colorScheme="teal"
-              variant="outline"
-              onClick={handleShowSendStatus}
-            >
-              Consultar processo
-            </Button>
+            <HStack spacing="2">
+              <Button
+                w={60}
+                h={8}
+                fontSize="15"
+                rightIcon={<Icon as={AiOutlineFileSearch} fontSize="15" />}
+                colorScheme="teal"
+                variant="outline"
+                onClick={handleShowSendStatus}
+              >
+                Consultar processo
+              </Button>
+              <Button
+                w={60}
+                h={8}
+                fontSize="15"
+                rightIcon={<Icon as={FiMonitor} fontSize="15" />}
+                colorScheme="teal"
+                variant="outline"
+                onClick={handleOpenMonitor}
+              >
+                Ver monitor
+              </Button>
+            </HStack>
           </Box>
         </Box>
 

@@ -47,7 +47,7 @@ export function MonitorOfSends() {
 
         clientsQueue.shift();
       }
-    }, 3000);
+    }, 1000);
   }, []);
 
   return (
