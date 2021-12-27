@@ -62,6 +62,12 @@ function Sendmails() {
     const response = await api.get('/email/status');
     const sendStatus: ISendStatus[] = response.data.status;
 
+    if (response.data.status.length === 0) {
+      setNumberSended(0);
+      setNumberSendWithError(0);
+      setNumberSendPending(0);
+    }
+
     sendStatus.forEach((status) => {
       if (status.sended === 'Y') {
         setNumberSended(Number(status.count));
