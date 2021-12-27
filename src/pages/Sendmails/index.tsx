@@ -23,6 +23,7 @@ import { RiDeleteBinLine } from 'react-icons/ri';
 import { Sidebar } from '../../components/Sidebar';
 import { Header } from '../../components/Header';
 import { api } from '../../services/api';
+import { MonitorOfSends } from '../../components/Sendsmails/MonitorOfSends';
 
 interface ISendStatus {
   count: string;
@@ -43,6 +44,8 @@ function Sendmails() {
   const [numberSendWithError, setNumberSendWithError] = useState(0);
 
   const [isLoadingSendFile, setIsLoadingSendFile] = useState(false);
+
+  const [sendEmailInAction, setSendEmailInAction] = useState(false);
 
   function handleFile(e: any) {
     if (e.target.files.length > 0) {
@@ -75,8 +78,10 @@ function Sendmails() {
       alert('Todos os campos devem ser preenchidos.');
       return;
     }
-
     api.post('/email/send', { emailSubject, linkImgBanner });
+
+    setLinkImgBanner('');
+    setSendEmailInAction(true);
   }
 
   async function handleSubmit(event: FormEvent) {
@@ -260,6 +265,7 @@ function Sendmails() {
                   }
                   colorScheme="teal"
                   variant="outline"
+                  disabled={sendEmailInAction}
                 >
                   Iniciar
                 </Button>
@@ -311,7 +317,8 @@ function Sendmails() {
         </Box>
 
         <Box display="flex" justifyContent="center" flex="1" maxHeight={600}>
-          <Image src={linkImgBanner} />
+          {linkImgBanner && <Image src={linkImgBanner} />}
+          {sendEmailInAction && <MonitorOfSends />}
         </Box>
       </Flex>
     </Box>

@@ -17,6 +17,12 @@ export const theme = extendTheme({
     red: {
       '400': '#F56565',
     },
+    Sucesso: {
+      '900': 'green',
+    },
+    Erro: {
+      '900': 'red',
+    },
   },
   fonts: {
     heading: 'Roboto',
