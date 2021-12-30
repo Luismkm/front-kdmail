@@ -1,5 +1,7 @@
 import React from 'react';
 import { Flex, Text } from '@chakra-ui/react';
+import { Profile } from './Profile';
+import { HeaderTools } from './HeaderTools';
 
 export function Header() {
   return (
@@ -24,6 +26,10 @@ export function Header() {
           .
         </Text>
       </Text>
+      <Flex align="center" ml="auto">
+        <HeaderTools />
+        <Profile />
+      </Flex>
     </Flex>
   );
 }
