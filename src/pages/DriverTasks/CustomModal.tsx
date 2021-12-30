@@ -36,6 +36,11 @@ const CustomModal = ({
   const [inputDescription, setInputDescription] = useState(value);
   const { flagUpdateTasks, setFlagUpdateTasks } = useTaskFlag();
 
+  function handleCloseModal() {
+    setInputDescription('');
+    onClose();
+  }
+
   function handleSetTaskDescriptionInput(description: string) {
     setInputDescription(description);
   }
@@ -79,7 +84,7 @@ const CustomModal = ({
           >
             {btnChildren}
           </Button>
-          <Modal isOpen={isOpen} onClose={onClose}>
+          <Modal isOpen={isOpen} onClose={handleCloseModal}>
             <ModalOverlay />
             <ModalContent bg="gray.800">
               <ModalHeader>{btnChildren}</ModalHeader>
@@ -111,7 +116,7 @@ const CustomModal = ({
                 >
                   Salvar
                 </Button>
-                <Button colorScheme="red" onClick={onClose}>
+                <Button colorScheme="red" onClick={handleCloseModal}>
                   Cancelar
                 </Button>
               </ModalFooter>
