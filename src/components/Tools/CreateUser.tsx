@@ -53,12 +53,17 @@ export function CreateUser() {
   const handleCreateUser: SubmitHandler<CreateUserFormData> = async (
     values,
   ) => {
-    await api.post('/users/create', {
-      name: values.name,
-      password: values.password,
-    });
-    reset();
-    onClose();
+    try {
+      await api.post('/users/create', {
+        name: values.name,
+        password: values.password,
+      });
+
+      reset();
+      onClose();
+    } catch (error) {
+      alert('Usuário já cadastrado');
+    }
   };
 
   return (
@@ -89,7 +94,7 @@ export function CreateUser() {
               <Stack spacing="4">
                 <Input
                   name="name"
-                  label="Nome completo"
+                  label="Nome"
                   error={errors.name}
                   {...register('name')}
                 />
