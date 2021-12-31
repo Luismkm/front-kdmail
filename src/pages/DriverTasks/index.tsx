@@ -117,50 +117,52 @@ function DriverTasks() {
                   <Td>{task.description}</Td>
                   <Td>{task.status}</Td>
                   <Td>
-                    <Button
-                      as="a"
-                      size="sm"
-                      fontSize="sm"
-                      p="0"
-                      mr="2"
-                      colorScheme="green"
-                      cursor="pointer"
-                      title="Marcar com feito"
-                      leftIcon={
-                        <Icon mr="-2" as={AiOutlineCheck} fontSize="16" />
-                      }
-                      value={task.status}
-                      onClick={() =>
-                        handleTaskUpdateStatus(task.status, task.id)
-                      }
-                    />
+                    <Box display="flex">
+                      <Button
+                        as="a"
+                        size="sm"
+                        fontSize="sm"
+                        p="0"
+                        mr="2"
+                        colorScheme="green"
+                        cursor="pointer"
+                        title="Marcar com feito"
+                        leftIcon={
+                          <Icon mr="-2" as={AiOutlineCheck} fontSize="16" />
+                        }
+                        value={task.status}
+                        onClick={() =>
+                          handleTaskUpdateStatus(task.status, task.id)
+                        }
+                      />
 
-                    <CustomModal
-                      btnColor="purple"
-                      btnTitle="Editar"
-                      icon={RiPencilLine}
-                      btnChildren=""
-                      id={task.id}
-                      value={task.description}
-                    />
+                      <CustomModal
+                        btnColor="purple"
+                        btnTitle="Editar"
+                        icon={RiPencilLine}
+                        btnChildren=""
+                        id={task.id}
+                        value={task.description}
+                      />
 
-                    <Button
-                      as="a"
-                      size="sm"
-                      fontSize="sm"
-                      p="0"
-                      mr="2"
-                      colorScheme="red"
-                      cursor="pointer"
-                      title="Excluir"
-                      leftIcon={
-                        <Icon mr="-2" as={ImCancelCircle} fontSize="16" />
-                      }
-                      value={task.id}
-                      onClick={() => {
-                        handleExcludeTask(task.id);
-                      }}
-                    />
+                      <Button
+                        as="a"
+                        size="sm"
+                        fontSize="sm"
+                        p="0"
+                        mr="2"
+                        colorScheme="red"
+                        cursor="pointer"
+                        title="Excluir"
+                        leftIcon={
+                          <Icon mr="-2" as={ImCancelCircle} fontSize="16" />
+                        }
+                        value={task.id}
+                        onClick={() => {
+                          handleExcludeTask(task.id);
+                        }}
+                      />
+                    </Box>
                   </Td>
                 </Tr>
               </Tbody>
