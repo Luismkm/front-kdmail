@@ -80,13 +80,13 @@ function Sendmails() {
     });
   }
 
-  function handleInicialSendService(event: FormEvent) {
+  async function handleInicialSendService(event: FormEvent) {
     event.preventDefault();
     if (emailSubject === '' || linkImgBanner === '') {
       alert('Todos os campos devem ser preenchidos.');
       return;
     }
-    api.post('/email/send', { emailSubject, linkImgBanner });
+    await api.post('/email/send', { emailSubject, linkImgBanner });
 
     setLinkImgBanner('');
     setSendEmailInAction(true);
