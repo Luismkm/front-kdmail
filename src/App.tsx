@@ -12,6 +12,7 @@ import { Login } from './pages/Login';
 import { AuthProvider } from './hooks/auth';
 import { RequireAuth } from './components/routes/RequireAuth';
 import { TaskFlag } from './hooks/task/task';
+import { Unsubscribe } from './pages/Unsubscribe';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/unsubscribe" element={<Unsubscribe />} />
 
             <Route element={<RequireAuth />}>
               <Route path="/" element={<Home />} />
