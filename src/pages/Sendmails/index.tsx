@@ -18,14 +18,15 @@ import {
 
 import { FaFileCsv } from 'react-icons/fa';
 import { FiMonitor } from 'react-icons/fi';
-
 import { AiOutlineArrowRight, AiOutlineFileSearch } from 'react-icons/ai';
 import { MdMiscellaneousServices } from 'react-icons/md';
 import { RiDeleteBinLine } from 'react-icons/ri';
+
 import { Sidebar } from '../../components/Sidebar';
 import { Header } from '../../components/Header';
-import { api } from '../../services/api';
 import { MonitorOfSends } from '../../components/Sendsmails/MonitorOfSends';
+
+import { api } from '../../services/api';
 
 interface ISendStatus {
   count: string;
@@ -33,7 +34,7 @@ interface ISendStatus {
 }
 
 function Sendmails() {
-  const [csvFile, setCsvFile] = useState('');
+  const [csvFile, setCsvFile] = useState<File>();
   const [fileName, setFileName] = useState('Selecionar arquivo...');
 
   const [recipientNumbers, setRecipientNumbers] = useState();
@@ -49,13 +50,13 @@ function Sendmails() {
 
   const [sendEmailInAction, setSendEmailInAction] = useState(false);
 
-  function handleFile(e: any) {
-    if (e.target.files.length > 0) {
-      const file = e.target.files[0];
+  function handleFile(event: FormEvent) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
 
-      setFileName(file.name);
-      setCsvFile(file);
-    }
+    const file = input.files[0];
+    setFileName(file.name);
+    setCsvFile(file);
   }
 
   async function handleShowSendStatus() {
@@ -98,6 +99,12 @@ function Sendmails() {
     setIsLoadingSendFile(true);
 
     const dataForm = new FormData();
+    if (!csvFile) {
+      setIsLoadingSendFile(false);
+      alert('Selecione um arquivo csv válido.');
+      return;
+    }
+
     dataForm.append('file', csvFile);
 
     const result = await api.post('/email/validation', dataForm);
@@ -180,8 +187,8 @@ function Sendmails() {
                   name="file"
                   id="file"
                   display="none"
-                  onChange={(e) => {
-                    handleFile(e);
+                  onChange={(event: React.FormEvent<HTMLInputElement>) => {
+                    handleFile(event);
                   }}
                 />
               </Flex>
