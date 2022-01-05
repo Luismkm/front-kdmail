@@ -186,6 +186,7 @@ function Sendmails() {
                   type="file"
                   name="file"
                   id="file"
+                  accept=".csv"
                   display="none"
                   onChange={(event: React.FormEvent<HTMLInputElement>) => {
                     handleFile(event);
