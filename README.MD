@@ -12,7 +12,7 @@ Uma base de destinatários deve ser fornecido em formato CSV(com colunas defenid
 
 O sistema foi desenvolvido pensando em clientes que possuem limite de envio pelo seu provedor.(ex. 200 emails por hora)
 
-[REST API](https://github.com/Luismkm/kdmail)
+Para ver a  **API**, clique aqui: [REST API](https://github.com/Luismkm/kdmail)
 
 ----
 
