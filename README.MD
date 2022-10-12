@@ -6,11 +6,11 @@
 
 ## 📋 Sobre
 
-A principal funcionalidade do Mailgo. é o envio de emails marketing.
+A principal funcionalidade do Mailgo. é o envio de e-mails marketing.
 
-Uma base de destinatários deve ser fornecido em formato CSV(com colunas defenidas).
+Uma base de destinatários deve ser fornecido em formato CSV(com colunas definidas).
 
-O sistema foi desenvolvido pensando em clientes que possuem limite de envio pelo seu provedor.(ex. 200 emails por hora)
+O sistema foi desenvolvido pensando em clientes que possuem limite de envio pelo seu provedor.(ex. 200 e-mails por hora).
 
 Para ver a  **API**, clique aqui: [REST API](https://github.com/Luismkm/kdmail)
 
